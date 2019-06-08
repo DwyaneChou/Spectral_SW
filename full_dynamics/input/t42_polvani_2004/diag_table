@@ -1,0 +1,17 @@
+t42_polvani_2004_from_external_file
+0 0 0 0 0 0
+#output files
+"atmos_instant", 24, "hours", 1, "days", "time",
+#diagnostic field entries.
+ "dynamics",  "ps",       "ps",       "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "bk",       "bk",       "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "pk",       "pk",       "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "zsurf",    "zsurf",    "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "ucomp",    "ucomp",    "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "vcomp",    "vcomp",    "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "temp",     "temp",     "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "omega",    "omega",    "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "div",      "div",      "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "vor",      "vor",      "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "EKE",      "EKE",      "atmos_instant",  "all",  .false.,  "none", 2,
+ "dynamics",  "vort_norm","vort_norm","atmos_instant",  "all",  .false.,  "none", 2,

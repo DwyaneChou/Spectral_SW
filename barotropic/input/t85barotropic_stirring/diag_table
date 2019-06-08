@@ -1,0 +1,17 @@
+t85barotropic_stirring
+0 0 0 0 0 0
+"barotropic", 1, "days",  1, "days", "time",
+"stirring",   1, "days",  1, "days", "time",
+"barotropic_diagnostics", "ucomp"   , "ucomp"   , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "vcomp"   , "vcomp"   , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "vor"     , "vor"     , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "pv"      , "pv"      , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "stream"  , "stream"  , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "stirring", "stirring", "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "trs"     , "trs"     , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "tr"      , "tr"      , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "eddy_vor", "eddy_vor", "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "delta_u" , "delta_u" , "barotropic", "all", .false., "none", 2,
+"stirring_mod",   "stirring",     "stirring",     "stirring",   "all", .false., "none", 2,
+"stirring_mod",   "stirring_amp", "stirring_amp", "stirring",   "all", .false., "none", 2,
+"stirring_mod",   "stirring_sqr", "stirring_sqr", "stirring",   "all", .false., "none", 2,

@@ -1,0 +1,52 @@
+ &atmosphere_nml
+   print_interval = 86400,
+/
+
+ &barotropic_dynamics_nml
+  triang_trunc   = .true.,
+  num_lat        = 128,
+  num_lon        = 256,
+  num_fourier    = 85,
+  num_spherical  = 86,
+  fourier_inc    = 1,
+  damping_option = 'resolution_dependent',
+  damping_order  = 2,
+  damping_coeff  = 1.157E-4,
+  damping_coeff_r= 1.929E-6,
+  grid_tracer    = .true.,
+  spec_tracer    = .true.,
+  m_0            = 6,
+  zeta_0         = 0.0,
+  eddy_lat       = 45.0,
+  eddy_width     = 10.0,
+  robert_coeff   = 0.04,
+  initial_zonal_wind = 'zero',
+/
+
+ &barotropic_physics_nml
+/
+
+ &fms_io_nml
+    threading_write = 'single',
+    fileset_write = 'single'
+/
+
+ &fms_nml
+         print_memory_usage=.true.,
+         domains_stack_size = 200000
+/
+
+ &main_nml
+         days   = 20,
+         dt_atmos = 1200
+/
+
+ &stirring_nml
+  decay_time=172800,
+  amplitude=3.e-11,
+  lat0=45.,
+  lon0=180.,
+  widthy=12.,
+  widthx=45.,
+  B=1.0,
+/

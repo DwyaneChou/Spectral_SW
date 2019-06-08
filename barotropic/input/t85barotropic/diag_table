@@ -1,0 +1,12 @@
+t85barotropic
+0 0 0 0 0 0
+"barotropic", 1, "days",  1, "days", "time",
+"barotropic_diagnostics", "ucomp"   , "ucomp"   , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "vcomp"   , "vcomp"   , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "vor"     , "vor"     , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "pv"      , "pv"      , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "stream"  , "stream"  , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "trs"     , "trs"     , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "tr"      , "tr"      , "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "eddy_vor", "eddy_vor", "barotropic", "all", .false., "none", 2,
+"barotropic_diagnostics", "delta_u" , "delta_u" , "barotropic", "all", .false., "none", 2,

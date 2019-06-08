@@ -1,0 +1,12 @@
+t85shallow
+0 0 0 0 0 0
+"shallow", 1, "days",  1, "days", "time",
+"shallow_diagnostics",  "ucomp",  "ucomp",  "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "vcomp",  "vcomp",  "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "vor",    "vor",    "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "div",    "div",    "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "h",      "h",      "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "pv",     "pv",     "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "stream", "stream", "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "trs",    "trs",    "shallow",  "all", .false.,  "none", 2,
+"shallow_diagnostics",  "tr",     "tr",     "shallow",  "all", .false.,  "none", 2,

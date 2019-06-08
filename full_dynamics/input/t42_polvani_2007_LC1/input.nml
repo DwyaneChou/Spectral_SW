@@ -1,0 +1,52 @@
+ &diag_manager_nml
+    mix_snapshot_average_fields=.true.,
+    debug_diag_manager=.true.
+/
+
+ &fms_io_nml
+    threading_write = 'single',
+    fileset_write = 'single'
+/
+
+ &fms_nml
+         print_memory_usage=.true.,
+         domains_stack_size = 1000000
+/
+
+ &hs_forcing_nml
+         no_forcing = .true.,
+/
+
+ &main_nml
+         days   = 16,
+         dt_atmos = 1200
+/
+
+ &polvani_2007_nml
+    T_hat = 1.0,
+    type_of_init = 'LC1',
+/
+
+ &spectral_dynamics_nml
+    damping_option          = 'resolution_dependent',
+    damping_order           = 3,
+    damping_coeff           = 5.5555555555556e-4,
+    do_mass_correction      =.true.,
+    do_energy_correction    =.true.,
+    do_water_correction     =.false.,
+    use_virtual_temperature =.false.,
+    vert_advect_uv          = 'VAN_LEER_LINEAR',
+    vert_advect_t           = 'VAN_LEER_LINEAR',
+    longitude_origin        = 0.,
+    robert_coeff            = .04,
+    alpha_implicit          = .5,
+    reference_sea_level_press=1.e5,
+    lon_max                 = 32,
+    lat_max                 = 64,
+    num_levels              = 30,
+    num_fourier             = 7,
+    num_spherical           = 43,
+    fourier_inc             = 6,
+    triang_trunc            =.true.,
+    initial_state_option    = 'polvani_2007',
+/
