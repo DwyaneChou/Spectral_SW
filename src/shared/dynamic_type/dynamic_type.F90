@@ -3,11 +3,11 @@ module dynamic_type
 implicit none
 
 type grid_type
-   real, pointer, dimension(:,:,:) :: u  =>NULL(), v  =>NULL(), &
-                                      vor=>NULL(), div=>NULL(), &
-                                      trs=>NULL(), tr =>NULL(), &
-                                      h  =>NULL()
-   real, pointer, dimension(:,:)   :: pv =>NULL(), stream=>NULL()
+   real, pointer, dimension(:,:,:) :: u  =>NULL(), v   =>NULL(), &
+                                      vor=>NULL(), div =>NULL(), &
+                                      trs=>NULL(), tr  =>NULL(), &
+                                      h  =>NULL(), hphs=>NULL()                ! Modified by zhoull
+   real, pointer, dimension(:,:)   :: pv =>NULL(), stream=>NULL(), hs =>NULL() ! Modified by zhoull
    real, pointer, dimension(:)     :: zonal_u_init=>NULL()
 end type
 type spectral_type

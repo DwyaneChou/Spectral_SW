@@ -31,15 +31,85 @@ module test_case
     call trans_spherical_to_grid(Dyn%Spec%div(:,:,1), Dyn%Grid%div(:,:,1))
     
     do j = js, je
-      do i = is, ie
-        Dyn%Grid%vor(i,j,1) = 2.0*u0/radius*sin_lat(j)
-      end do
+        do i = is, ie
+            Dyn%Grid%vor(i,j,1) = 2.0*u0/radius*sin_lat(j)
+        end do
     end do
     
     call trans_grid_to_spherical(Dyn%Grid%vor(:,:,1), Dyn%Spec%vor(:,:,1))
     
     end subroutine case2
 
+    subroutine case5(Dyn,cos_lat,sin_lat,is,ie,js,je)
+    implicit none
+    type(dynamics_type)        , intent(inout) :: Dyn
+    integer                    , intent(in   ) :: is,ie,js,je
+    real,dimension(js:je)      , intent(in   ) :: sin_lat, cos_lat
+    
+    real,dimension(is:ie)       :: deg_lon,reg_lon
+    real,dimension(js:je)       :: deg_lat,reg_lat
+    real                        :: d2r
+    
+    real, parameter :: u0 = 20.d0
+    real, parameter :: gh0 = 5960.d0*g
+    real, parameter :: hs0 = 2000.d0
+    real, parameter :: theta_c = pi/6.d0
+    real, parameter :: lambda_c = 3.d0*pi/2.d0
+    real, parameter :: rr = pi/9.d0
+    real, parameter :: alpha = 0.d0
+    real            :: r
+    
+    integer         :: i,j
+    
+    d2r = pi/180.d0
+    call get_deg_lon(deg_lon)
+    call get_deg_lat(deg_lat)
+    reg_lon = deg_lon*d2r
+    reg_lat = deg_lat*d2r
+    
+    do i = is, ie
+      Dyn%Grid%u(i,:,1) = u0*cos_lat
+    end do
+    Dyn%Grid%v(:,:,1) = 0.d0
+    
+    !
+    ! Initialize mountain
+    !
+    do i = is, ie
+        if (reg_lon(i) < 0.d0) reg_lon(i) = reg_lon(i) + 2.d0 * pi
+        do j = js, je
+            r = sqrt(min(rr**2.d0, (reg_lon(i) - lambda_c)**2.d0 + (reg_lat(j) - theta_c)**2.d0))
+            Dyn%Grid%hs(i,j) = hs0 * (1.d0 - r/rr)*g
+        enddo
+    end do
+    
+    !
+    ! Initialize height field (actually, fluid thickness field)
+    !
+    do i = is, ie
+        do j = js, je
+            Dyn%Grid%h(i,j,1) = gh0 - (radius*omega*u0+0.5*u0**2)*sin_lat(j)**2
+            Dyn%Grid%h(i,j,1) = Dyn%Grid%h(i,j,1) - Dyn%Grid%hs(i,j)
+        enddo
+    end do
+    
+    call vor_div_from_uv_grid(Dyn%Grid%u  (:,:,1), Dyn%Grid%v  (:,:,1),&
+                              Dyn%Spec%vor(:,:,1), Dyn%Spec%div(:,:,1))
+    
+    call trans_grid_to_spherical(Dyn%Grid%h  (:,:,1), Dyn%Spec%h  (:,:,1))
+    call trans_spherical_to_grid(Dyn%Spec%vor(:,:,1), Dyn%Grid%vor(:,:,1))
+    call trans_spherical_to_grid(Dyn%Spec%div(:,:,1), Dyn%Grid%div(:,:,1))
+    
+    !do j = js, je
+    !    do i = is, ie
+    !        Dyn%Grid%vor(i,j,1) = 2.0*u0/radius*sin_lat(j)
+    !    end do
+    !end do
+    
+    call trans_grid_to_spherical(Dyn%Grid%vor(:,:,1), Dyn%Spec%vor(:,:,1))
+    
+    end subroutine case5
+    
     subroutine case6(Dyn,cos_lat,sin_lat,is,ie,js,je)
     implicit none
     type(dynamics_type)        , intent(inout) :: Dyn

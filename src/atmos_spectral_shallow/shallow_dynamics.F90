@@ -58,7 +58,7 @@ use           leapfrog_mod, only: leapfrog
 use       fv_advection_mod, only : fv_advection_init, a_grid_horiz_advection
 
 use           dynamic_type, only: grid_type, spectral_type, tendency_type, dynamics_type
-use              test_case, only: case2,case6
+use              test_case, only: case2,case5,case6
 
 !======================================================================================
 implicit none
@@ -213,6 +213,8 @@ allocate (Dyn%grid%v   (is:ie, js:je, num_time_levels))
 allocate (Dyn%grid%vor (is:ie, js:je, num_time_levels))
 allocate (Dyn%grid%div (is:ie, js:je, num_time_levels))
 allocate (Dyn%grid%h   (is:ie, js:je, num_time_levels))
+allocate (Dyn%grid%hs  (is:ie, js:je                 )) !Modified by Zhoull
+allocate (Dyn%grid%hphs(is:ie, js:je, num_time_levels)) !Modified by Zhoull
 
 allocate (Dyn%tend%u        (is:ie, js:je))
 allocate (Dyn%tend%v        (is:ie, js:je))
@@ -236,6 +238,8 @@ if(Time == Time_init) then
     
     if(case_num==2)then
         call case2(Dyn,cos_lat,sin_lat,is,ie,js,je)
+    elseif(case_num==5)then
+        call case5(Dyn,cos_lat,sin_lat,is,ie,js,je)
     elseif(case_num==6)then
         call case6(Dyn,cos_lat,sin_lat,is,ie,js,je)
     endif
@@ -305,8 +309,8 @@ Dyn%Tend%h = Dyn%Tend%h - Dyn%Grid%h(:,:,current)*Dyn%Grid%div(:,:,current)
 
 call trans_grid_to_spherical (Dyn%Tend%h, dt_hs)
 
-bg = (Dyn%Grid%h(:,:,current) + &
-   0.5*(Dyn%Grid%u(:,:,current)**2 + Dyn%Grid%v(:,:,current)**2))
+bg = (  Dyn%Grid%h(:,:,current) + Dyn%Grid%hs &
+      + 0.5*(Dyn%Grid%u(:,:,current)**2 + Dyn%Grid%v(:,:,current)**2))
 
 call trans_grid_to_spherical(bg, bs)
 dt_divs = dt_divs - compute_laplacian(bs)
@@ -343,6 +347,8 @@ if(Dyn%grid_tracer) call update_grid_tracer(Dyn%Grid%tr, Dyn%Tend%tr, &
 
 
 !  for diagnostics
+   
+Dyn%Grid%hphs(:,:, future) = Dyn%Grid%h(:,:, future) + Dyn%Grid%hs
 
 stream = compute_laplacian(Dyn%Spec%vor(:,:,current), -1) ! for diagnostic purposes
 call trans_spherical_to_grid(stream, Dyn%grid%stream)

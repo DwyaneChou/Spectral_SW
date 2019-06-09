@@ -156,7 +156,7 @@ call shallow_dynamics_init (Dyn, Time, Time_init)
 
 call get_grid_domain(is,ie,js,je)
 call get_spec_domain(ms,me,ns,ne)
- 
+
 num_lon = Dyn%num_lon
 num_lat = Dyn%num_lat
 
@@ -164,7 +164,7 @@ nlon = ie+1-is  ! size of grid on each processor
 nlat = je+1-js
 
 call shallow_physics_init(Phys)
-call shallow_diagnostics_init(Time, num_lon, num_lat)
+call shallow_diagnostics_init(Time, Dyn%Grid, num_lon, num_lat)
 
 if(Time == Time_init) then
   previous = 1

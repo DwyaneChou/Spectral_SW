@@ -55,16 +55,17 @@ character(len=84) :: mod_name = 'shallow_diagnostics'
 
 logical :: module_is_initialized = .false.
 
-integer :: id_vor, id_stream, id_pv, id_u, id_v, id_div, id_h, id_trs, id_tr
+integer :: id_vor, id_stream, id_pv, id_u, id_v, id_div, id_h, id_hs, id_hphs, id_trs, id_tr
 
 integer :: is, ie, js, je
 
 contains
 
 !-----------------------------------------------------------------------------------------------------------------
-subroutine shallow_diagnostics_init(Time, lon_max, lat_max)
+subroutine shallow_diagnostics_init(Time, Grid, lon_max, lat_max)
 
 type(time_type), intent(in) :: Time
+type(grid_type), intent(in) :: Grid
 integer, intent(in) :: lon_max, lat_max
 
 real, dimension(lon_max  ) :: lon
@@ -96,15 +97,17 @@ id_lat =diag_axis_init('lat', lat, 'degrees_N', 'y', 'latitude',  set_name=axise
 axis_2d(1) = id_lon
 axis_2d(2) = id_lat
 
-id_u      = register_diag_field(mod_name, 'ucomp' , axis_2d, Time, 'u_wind'              , 'm/s'      ) 
-id_v      = register_diag_field(mod_name, 'vcomp' , axis_2d, Time, 'v_wind'              , 'm/s'      ) 
-id_vor    = register_diag_field(mod_name, 'vor'   , axis_2d, Time, 'relative vorticity'  , '1/s'      )
-id_div    = register_diag_field(mod_name, 'div'   , axis_2d, Time, 'divergence'          , '1/s'      )
-id_h      = register_diag_field(mod_name, 'h'     , axis_2d, Time, 'geopotential'        , 'm2/s2'    )
-id_pv     = register_diag_field(mod_name, 'pv'    , axis_2d, Time, 'potential vorticity' , 's/m2'     )
-id_stream = register_diag_field(mod_name, 'stream', axis_2d, Time, 'streamfunction'      , 'm^2/s'    )
-id_trs    = register_diag_field(mod_name, 'trs'   , axis_2d, Time, 'spectral tracer'     , 'none'     )
-id_tr     = register_diag_field(mod_name, 'tr'    , axis_2d, Time, 'grid tracer'         , 'none'     )
+id_u      = register_diag_field(mod_name, 'ucomp' , axis_2d, Time, 'u_wind'                                       , 'm/s'      ) 
+id_v      = register_diag_field(mod_name, 'vcomp' , axis_2d, Time, 'v_wind'                                       , 'm/s'      ) 
+id_vor    = register_diag_field(mod_name, 'vor'   , axis_2d, Time, 'relative vorticity'                           , '1/s'      )
+id_div    = register_diag_field(mod_name, 'div'   , axis_2d, Time, 'divergence'                                   , '1/s'      )
+id_h      = register_diag_field(mod_name, 'h'     , axis_2d, Time, 'geopotential'                                 , 'm2/s2'    )
+id_hs     = register_diag_field(mod_name, 'hs'    , axis_2d, Time, 'surface height'                               , 'm2/s2'    )
+id_hphs   = register_diag_field(mod_name, 'hphs'  , axis_2d, Time, 'geopotential height puls surface height'      , 'm2/s2'    )
+id_pv     = register_diag_field(mod_name, 'pv'    , axis_2d, Time, 'potential vorticity'                          , 's/m2'     )
+id_stream = register_diag_field(mod_name, 'stream', axis_2d, Time, 'streamfunction'                               , 'm^2/s'    )
+id_trs    = register_diag_field(mod_name, 'trs'   , axis_2d, Time, 'spectral tracer'                              , 'none'     )
+id_tr     = register_diag_field(mod_name, 'tr'    , axis_2d, Time, 'grid tracer'                                  , 'none'     )
 
 module_is_initialized = .true.
 
@@ -121,7 +124,7 @@ type(grid_type), intent(in) :: Grid
 integer,         intent(in) :: time_index
 
 logical :: used
-   
+
 if(id_u       > 0) used = send_data(id_u      , Grid%u       (:,:, time_index)     , time)
 if(id_v       > 0) used = send_data(id_v      , Grid%v       (:,:, time_index)     , time)
 if(id_vor     > 0) used = send_data(id_vor    , Grid%vor     (:,:, time_index)     , time)
@@ -131,6 +134,8 @@ if(id_pv      > 0) used = send_data(id_pv     , Grid%pv      (:,:)              
 if(id_stream  > 0) used = send_data(id_stream , Grid%stream  (:,:)                 , time)
 if(id_tr      > 0) used = send_data(id_tr     , Grid%tr      (:,:, time_index)     , time)
 if(id_trs     > 0) used = send_data(id_trs    , Grid%trs     (:,:, time_index)     , time)
+if(id_hs      > 0) used = send_data(id_hs     , Grid%hs      (:,:)                 , time)
+if(id_hphs    > 0) used = send_data(id_hphs   , Grid%hphs    (:,:, time_index)     , time)
 
 return
 end subroutine shallow_diagnostics
