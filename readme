@@ -1,6 +1,9 @@
-This is a sepctral model with shallow water dynamic core, this model was developed by GFDL,
+This is a sepctral model with shallow water dynamic core, this model was developed by GFDL
 
-Some test cases (Williamson, 1992) was added into the code by Zhou Lilong.
+Some test cases (Williamson, 1992) was added into the code by Zhou Lilong, including:
+test case 2 : Global Steady State Nonlinear onal Geostrophic Flow
+test case 5 : Zonal Flow Over an Isolated Mountain
+test case 6 : Rossby-Haurwitz Wave
 
 Where to start
 ~~~~~~~~~~~~~~
