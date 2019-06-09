@@ -1,3 +1,7 @@
+This is a sepctral model with shallow water dynamic core, this model was developed by GFDL,
+
+Some test cases (Williamson, 1992) was added into the code by Zhou Lilong.
+
 Where to start
 ~~~~~~~~~~~~~~
 Documentation of these models can be found here:
